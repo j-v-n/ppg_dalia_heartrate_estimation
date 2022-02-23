@@ -50,7 +50,7 @@ def create_dataframe(filepath, subject_name: str) -> DataFrame:
     ACC_FREQUENCY = 32
     SAMPLING_FREQUENCY = 4
 
-    with open(os.path.join(filepath, subject_name, f"{subject_name}.pkl"), "rb") as f:
+    with open(os.path.join(filepath, f"{subject_name}.pkl"), "rb") as f:
         # encoding in latin1
         data = pickle.load(f, encoding="latin1")
     # extract the PPG data from the "wrist" key
