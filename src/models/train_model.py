@@ -164,14 +164,15 @@ class TrainModel:
         valid_X, valid_y = self.load_data(subject_set="valid")
         # define callbacks
         # early stopping
-        es_callback = tf.keras.callbacks.EarlyStopping(monitor="val_mae", patience=10)
+        es_callback = tf.keras.callbacks.EarlyStopping(monitor="val_loss", patience=10)
         # model checkpoint
         cp_callback = tf.keras.callbacks.ModelCheckpoint(
             "models/",
-            monitor="val_mae",
+            monitor="val_loss",
             verbose=0,
             save_best_only=True,
-            mode="max",
+            save_weights_only=True,
+            mode="min",
         )
         log_dir = "models/logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
         # tensorboard callback
@@ -206,7 +207,7 @@ if __name__ == "__main__":
         n_output_nodes=1,
         n_seq=4,
         batch_size=32,
-        epochs=1,
+        epochs=100,
     )
     # run training
     process.train()
@@ -218,6 +219,7 @@ if __name__ == "__main__":
     yhat = process.model.predict(test_X)
     # get mae
     mae = mean_absolute_error(test_y, yhat)
+    print("mae on test set is :", mae)
     # plot predictions
     timesteps = list(range(len(yhat)))
     plt.plot(timesteps, test_y, "k", label="ground truth")
