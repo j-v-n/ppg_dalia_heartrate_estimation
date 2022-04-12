@@ -1,4 +1,4 @@
-ppg_dalia_heartrate_estimation
+PPG DaLiA Heart Rate Estimation Project
 ==============================
 
 Estimate heartrate using PPG Sensor measurements. Dataset : https://archive.ics.uci.edu/ml/datasets/PPG-DaLiA

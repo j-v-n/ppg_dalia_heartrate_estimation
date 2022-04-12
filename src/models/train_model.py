@@ -1,5 +1,7 @@
 from __future__ import annotations
-import optparse
+import os
+
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "1"
 import numpy as np
 import pandas as pd
 import datetime
@@ -22,7 +24,7 @@ from pickle import dump, load
 np.random.seed(42)
 
 
-def scale_and_encode(dataframe):
+def scale_and_encode(dataframe, subject: int):
     """
     Function to scale numerical features and one hot encode categorical ones
 
@@ -47,7 +49,7 @@ def scale_and_encode(dataframe):
     # fit the columntransformer to the dataframe
     preprocessor.fit(dataframe)
     # save the preprocessor as we will fit this scaler to validation and testing sets
-    dump(preprocessor, open("models/scaler_and_encoder.pkl", "wb"))
+    dump(preprocessor, open("models/scaler_and_encoder_{}.pkl".format(subject), "wb"))
     # # return the transformed array
     return preprocessor.transform(dataframe)
 
@@ -165,6 +167,7 @@ class TrainModel:
                 epochs=self.epochs,
                 batch_size=self.batch_size,
                 callbacks=[es_callback, tb_callback],
+                verbose=0,
             )
         print("-------------------------------------")
         print("testing on subject - {}".format(self.valid_subjects[0]))
@@ -239,9 +242,11 @@ if __name__ == "__main__":
         # create a concatenated dataframe
         frames = pd.concat(list_of_dfs)
         # scale and encode training set
-        sf_frames = scale_and_encode(frames)
+        sf_frames = scale_and_encode(frames, i)
         # use the saved scaler encoder for later use with validation set
-        saved_scaler_encoder = load(open("models/scaler_and_encoder.pkl", "rb"))
+        saved_scaler_encoder = load(
+            open("models/scaler_and_encoder_{}.pkl".format(i), "rb")
+        )
         # define number of features
         n_features = 8
         # instantiate the training model process -> for each training fold, the model is freshly initiated
