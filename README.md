@@ -3,6 +3,48 @@ PPG DaLiA Heart Rate Estimation Project
 
 Estimate heartrate using PPG Sensor measurements. Dataset : https://archive.ics.uci.edu/ml/datasets/PPG-DaLiA
 
+Considered Features
+------------
+- PPG signal channel
+- Accelerometer x, y and z channels
+- Age
+- Gender
+- Physical fitness level (sport)
+- BMI (calculated)
+
+Target 
+------------
+- Heart rate (bpm)
+
+Training Process
+------------
+- CNN LSTM model
+- LOSO validation for each subject
+
+Model Performance
+------------
+
+|Subject| MAE |
+| ----- | --- |
+| 1 | 9.992 |
+| 2 | 7.796 |
+| 3 | 12.445 |
+| 4 | 9.892 |
+| 5 | 43.913 |
+| 6 | 25.698 |
+| 7 | 12.398 |
+| 8 | 14.125 |
+| 9 | 10.165 |
+| 10 | 11.020|
+| 11 | 22.729 |
+| 12 | 12.894 |
+| 13 | 12.987 |
+| 14 | 12.090 |
+| 15 | 13.507 |
+| Average | 15.443 |
+
+The model does not use any FFT of the input signals and considers only the raw signals
+
 Project Organization
 ------------
 
