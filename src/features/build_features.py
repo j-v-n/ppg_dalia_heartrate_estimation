@@ -18,7 +18,7 @@ import pprint
 path_to_join = os.path.join(os.getcwd(), "src")
 sys.path.insert(0, path_to_join)
 
-from visualization.visualize import create_dataframe
+from src.visualization.visualize import create_dataframe
 
 
 ACTIVITY_DICT = {

@@ -120,18 +120,18 @@ class TrainModel:
         # load the dataframe
         data = DataBlock("S{}".format(subject), "data/raw/")
         df = data.raw_dataframe
-        # name the columns
-        df.columns = [
-            "bvp",
-            "acc_x",
-            "acc_y",
-            "acc_z",
-            "gender",
-            "age",
-            "sport",
-            "bmi",
-            "heart_rate",
-        ]
+        # # name the columns
+        # df.columns = [
+        #     "bvp",
+        #     "acc_x",
+        #     "acc_y",
+        #     "acc_z",
+        #     "gender",
+        #     "age",
+        #     "sport",
+        #     "bmi",
+        #     "heart_rate",
+        # ]
         # if scaling and encoding needs to be done, load the scaler encoder and transform the dataframe
         if self.scaler_encoder:
             df = self.scaler_encoder.transform(df)
